@@ -14,4 +14,4 @@ killall harmony
 rm harmony-release.zip
 wget https://github.com/rmkit-dev/rmkit/releases/download/v0.0.2/release.zip -O harmony-release.zip
 yes | unzip harmony-release.zip
-./harmony/harmony
+./apps/harmony.exe
