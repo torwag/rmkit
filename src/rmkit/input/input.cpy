@@ -198,6 +198,10 @@ namespace input:
 
       rdfs_cp = rdfs
 
+      #ifdef DEV
+      timeout_ms = 1000
+      #endif
+
       if timeout_ms > 0:
           struct timeval tv = {timeout_ms / 1000, (timeout_ms % 1000) * 1000}
           retval = select(max_fd, &rdfs_cp, NULL, NULL, &tv)
@@ -215,6 +219,8 @@ namespace input:
           self.button.handle_event_fd()
         if FD_ISSET(input::ipc_fd[0], &rdfs_cp):
           self.handle_ipc()
+      else if retval == 0:
+        debug "INPUT TIMEOUT HIT"
 
       for auto ev : self.wacom.events:
         self.all_motion_events.push_back(self.wacom.marshal(ev))
